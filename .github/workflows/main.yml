@@ -1,0 +1,35 @@
+name: AV1 Converter CI
+
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v2
+
+    - name: Set up Python
+      uses: actions/setup-python@v2
+      with:
+        python-version: 3.x
+
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install flask boto3
+
+    # Example action: Running the Flask application (not in production mode).
+    # Note: This is just a basic example and might not be suitable for your real-world needs.
+    - name: Run Flask app
+      run: |
+        export FLASK_APP=app.py
+        export FLASK_ENV=development
+        flask run &
+        sleep 10  # Let the server start and run for a while
+        kill %1  # Stop the Flask server
