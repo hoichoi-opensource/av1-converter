@@ -12,24 +12,19 @@ jobs:
 
     steps:
     - name: Checkout repository
-      uses: actions/checkout@v2
+      uses: actions/checkout@v3
 
     - name: Set up Python
-      uses: actions/setup-python@v2
+      uses: actions/checkout@v3
       with:
-        python-version: 3.x
+        python-version: 3.10
 
     - name: Install dependencies
       run: |
         python -m pip install --upgrade pip
-        pip install flask boto3
+        pip install flake8
 
-    # Example action: Running the Flask application (not in production mode).
-    # Note: This is just a basic example and might not be suitable for your real-world needs.
-    - name: Run Flask app
+    - name: Lint with flake8
       run: |
-        export FLASK_APP=app.py
-        export FLASK_ENV=development
-        flask run &
-        sleep 10  # Let the server start and run for a while
-        kill %1  # Stop the Flask server
+        flake8 . --count --select=E9,F63,F7,F82 --show-source --statistics
+        flake8 . --count --exit-zero --max-complexity=10 --max-line-length=127 --statistics
