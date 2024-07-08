@@ -5,4 +5,4 @@ SOURCE_BUCKET = 'source-bucket-name'
 DEST_BUCKET = 'destination-bucket-name'
 
 # FFmpeg parameters
-FFMPEG_PARAMS = '-c:v libaom-av1 -crf 30 -b:v 0'
+FFMPEG_PARAMS = '-c:v libsvtav1 -crf 30 -b:v 0 -svtav1-params preset=8 '
